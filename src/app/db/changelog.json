@@ -1,0 +1,7 @@
+[
+    "insert or ignore into season (id, name, short_name, from_, to_) values ('179ebfd6ed1f', '2023/2024', '23/24', '2023-07-01', '2024-06-30');",
+    "insert or ignore into venue (id, name, lat, lng, country_code, capacity) values ('d6562b04e2f8', 'Merkur Arena', 47.0464262, 15.4520182, 'at', 16764);",
+    "insert or ignore into club (id, name, short_name, country_code, primary_colour, secondary_colour, is_main, venue_id, logo) values ('96c8eab2beb1', 'SK Sturm Graz', 'Sturm Graz', 'at', '#000000', '#ffffff', true, 'd6562b04e2f8', '@b:blob:')",
+    "insert or ignore into competition (id, name, short_name, logo, is_domestic, table_position_offset) values ('b232fe70c70c', 'Österreichische Bundesliga', '🇦🇹 Bundesliga', '@b:blob:', true, 0);",
+    "insert or ignore into competition (id, name, short_name, logo, is_domestic, table_position_offset, parent_id) values ('514dfc3040b1', 'Österreichische Bundesliga Meisterrunde', '🇦🇹 Bundesliga Meisterrunde', '@b:blob:', true, 0, 'b232fe70c70c');"
+]

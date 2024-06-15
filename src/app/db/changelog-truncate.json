@@ -1,0 +1,10 @@
+[
+    "delete from season;",
+    "drop table season;",
+    "delete from venue;",
+    "drop table venue;",
+    "delete from club;",
+    "drop table club;",
+    "delete from competition;",
+    "drop table competition;"
+]
