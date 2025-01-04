@@ -4,4 +4,5 @@ export interface SeasonDaoInterface {
     short_name: string;
     from_: string;
     to_: string;
+    tombstone?: boolean;
 }

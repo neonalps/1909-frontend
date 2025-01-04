@@ -5,6 +5,8 @@ import { timeout } from '@src/app/util/common';
 import { UpstreamManager } from '@src/app/upstream/manager';
 import { ChantService } from '@src/app/modules/chant/chant.service';
 import { TimeSource } from '@src/app/util/timeSource';
+import { ControlRoom } from '@src/app/modules/control-room/service';
+import { SyncService } from '@src/app/modules/sync/service';
 
 @Component({
   selector: 'app-splash-screen',
@@ -24,8 +26,8 @@ export class SplashScreenComponent implements OnInit {
   constructor(
     private readonly chantService: ChantService,
     private readonly repositoryService: RepositoryService,
+    private readonly syncService: SyncService,
     private readonly timeSource: TimeSource,
-    private readonly upstreamManager: UpstreamManager
   ) {
     this.chant = this.chantService.getRandomChant();
   }
@@ -37,16 +39,8 @@ export class SplashScreenComponent implements OnInit {
   private async registerHideLogic(): Promise<void> {
     const start = this.timeSource.getNow();
 
-    const [upstreamResponse] = await Promise.all([
-      this.upstreamManager.fetchUpstreamItems(),
-      this.repositoryService.init(),
-    ]);
-
-    if (upstreamResponse.success === true && upstreamResponse.response !== undefined) {
-      await this.repositoryService.executeBatch(upstreamResponse.response.items.map(item => item.query));
-    } else {
-      console.log('No upstream items received');
-    }
+    await this.repositoryService.init();
+    //await this.syncService.fetchAndProcessUpstreamItems();
 
     const end = this.timeSource.getNow();
     const took = end - start;
@@ -58,7 +52,7 @@ export class SplashScreenComponent implements OnInit {
 
     this.windowWidth = `-${window.innerWidth}px`;
 
-    setTimeout(() => {
+    setTimeout(async () => {
       this.showSplashScreen = false;
       console.log(`load took ${took}ms`);
     }, 500);

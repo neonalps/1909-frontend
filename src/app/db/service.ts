@@ -16,20 +16,4 @@ export class RepositoryService {
         await this.repository.raw("select 1;");
     }
 
-    public async executeBatch(items: string[]): Promise<void> {
-        if (!items || items.length === 0) {
-            return;
-        }
-
-        const statements = items.map(item => {
-            return { query: item };
-        });
-
-        await this.repository.transaction(statements);
-    }
-
-    public async createUpstreamTablesIfNotExist(): Promise<void> {
-        const result = await this.repository.raw(`select count(*) from sqlite_master where type = 'table' and name = 'upstream`)
-    }
-
 }

@@ -5,6 +5,7 @@ import { CreateSeasonDto } from "@src/app/models/dto/create-season.dto";
 import { SeasonDaoInterface } from "@src/app/models/interface/season.interface";
 import { UpstreamManager } from "@src/app/upstream/manager";
 import { convertDateToDateString } from "@src/app/util/common";
+import { SeasonConverter } from "@src/app/modules/season/season.converter";
 
 @Injectable({
     providedIn: 'root'
@@ -27,12 +28,12 @@ export class SeasonRepository {
 
     async getAll(): Promise<SeasonDao[]> {
         const items = await this.repository.query<SeasonDaoInterface>(`select * from season order by from_ desc`);
-        return items.map(item => SeasonDao.fromDaoInterface(item));
+        return items.map(item => SeasonConverter.fromDaoInterface(item));
     }
 
     async getById(seasonId: string): Promise<SeasonDao | null> {
         const item = await this.repository.queryById<SeasonDaoInterface>(`select * from season where id = :id`, { ':id': seasonId });
-        return item !== null ? SeasonDao.fromDaoInterface(item) : null;
+        return item !== null ? SeasonConverter.fromDaoInterface(item) : null;
     }
 
 }

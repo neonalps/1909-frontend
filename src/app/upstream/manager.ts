@@ -17,7 +17,7 @@ export interface UpstreamResponseDto {
 }
 
 export interface UpstreamItem {
-    id: string;
+    timestamp: string;
     query: string;
 }
 
@@ -42,9 +42,11 @@ export class UpstreamManager extends WorkerManager {
         });
     }
 
-    public async fetchUpstreamItems(): Promise<UpstreamResponseDto> {
+    public async fetchUpstreamItems(lastSeenSyncTimestamp: string | null): Promise<UpstreamResponseDto> {
         try {
-            const workerResponse = await this.postQueryToWorker<WorkerUpstreamResponse>("fetchUpstream", {});
+            const workerResponse = await this.postQueryToWorker<WorkerUpstreamResponse>("fetchUpstream", {
+                lastSeenSyncTimestamp,
+            });
             return {
                 success: true,
                 response: workerResponse,

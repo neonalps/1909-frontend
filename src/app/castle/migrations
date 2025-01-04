@@ -1,0 +1,5 @@
+append only json file
+migration manager must check whether migrations table exists, if not create it
+check which migrations were already applied
+apply all new ones
+if a migration fails, mark it as failed with the exception reason

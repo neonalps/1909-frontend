@@ -90,6 +90,7 @@ if (typeof self !== 'undefined') {
             if (isTransactionOpen) {
                 db.exec(`ROLLBACK`);
                 isTransactionOpen = false;
+                console.log('rolled back');
             }
     
             postMessage({

@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     mainClub: {
         chants: [
             "Auf die Schwoazn!",

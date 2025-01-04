@@ -1,0 +1,16 @@
+{
+    "migrations": [
+        {
+            "id": "000000000000-create-table-messages-crdt",
+            "sql": "create table messages_crdt (timestamp text primary key, dataset text, row text, column text, value text, needs_sync integer);"
+        },
+        {
+            "id": "000000000001-create-table-control-room",
+            "sql": "create table control_room (prop text primary key, value text);"
+        },
+        {
+            "id": "202501040600-create-table-season",
+            "sql": "create table season (text primary key, name text, short_name text, from_ date, to_ date, tombstone integer default 0);"
+        }
+    ]
+}

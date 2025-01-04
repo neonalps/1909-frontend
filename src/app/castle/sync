@@ -1,0 +1,16 @@
+make local changes
+
+1) service x calls create method
+2) crdt messages for action get created
+3) crdt messages are stored in messages_crdt with needs_sync = true
+4) crdt messages are processed and applied to local database, clock/merkle are updated
+5) next sync cycle reads messages from messages_crdt with needs_sync = true
+6) calls sync worker, pushes messages, retrieves new upstream messages
+
+
+get upstream changes
+1) call sync worker, retrieve new upstream messages
+2) store them in messages_crdt with needs_sync = false
+3) filter incoming messages for relevance (i.e. no newer version exists locally)
+4) apply all relevant messages locally, clock/merkle are updated
+5) verify that upstream clock/merkle and local clock/merkle match
